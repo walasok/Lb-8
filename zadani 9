@@ -1,0 +1,44 @@
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace num_2
+
+{
+    public partial class Form1 : Form
+    {
+        private TextBox tbFb;
+        private Label lblResult;
+        public Form1()
+        {
+            Text = "задача 9";
+            Size = new Size(420, 220);
+            StartPosition = FormStartPosition.CenterScreen;
+            Font = new Font("Segoe UI", 10);
+
+            Label l1 = new Label { Text = " выталкивающая сила, Н: ", Location = new Point(20, 30), AutoSize = true };
+            Controls.Add(l1);
+
+            tbFb = new TextBox { Text = "10,3", Location = new Point(220, 28), Width = 100};
+            Controls.Add(tbFb);
+
+            Button btn = new Button { Text = "Рассчитать", Location = new Point(20, 70), Width = 150, Height = 35 };
+            btn.Click += (s, e) => Clac();
+            Controls.Add(btn);
+
+            lblResult = new Label { Text = "Объем: ", Location = new Point(20, 120), AutoSize = true, Font = new Font("Segou UI", 12, FontStyle.Bold) };
+            Controls.Add(lblResult);
+        }
+        private void Clac()
+        {
+            try
+            {
+                double Fb = double.Parse(tbFb.Text.Replace(".", ","));
+                double V = Fb / (1030 * 10);
+                lblResult.Text = $"Объем: {V:F3} M";
+            }
+            catch { MessageBox.Show("Ошибка"); }
+        }
+
+    }
+}
