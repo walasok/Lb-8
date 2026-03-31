@@ -1,0 +1,57 @@
+using System;
+using System.Drawing;
+using System.Globalization;
+using System.Windows.Forms;
+
+namespace num_13
+{
+    public partial class Form1 : Form
+    {
+        private TextBox tbH, tbP;
+        private Label res;
+        public Form1()
+        {
+            InitializeComponent();
+            this.Load -= Form1_Load;
+
+            Text = "Задача 13";
+            Size = new Size(420, 240);
+            StartPosition = FormStartPosition.CenterScreen;
+
+            Label l1 = new Label { Text = "Высота(м):", Location = new Point(20, 30), AutoSize = true };
+            Controls.Add(l1);
+            tbH = new TextBox { Text = "0.25", Location = new Point(140, 28), Width = 100 };
+            Controls.Add(tbH);
+
+            Label l2 = new Label { Text = "Давление (Па):", Location = new Point(20, 70), AutoSize = true };
+            Controls.Add(l2);
+            tbP = new TextBox { Text = "2000", Location = new Point(140, 68), Width = 130 };
+            Controls.Add(tbP);
+
+            Button b = new Button { Text = "Рассчитать", Location = new Point(20, 110), Width = 130 };
+            b.Click += (s, e) => Clac();
+            Controls.Add(b);
+
+            res = new Label { Text = "p =", Location = new Point(20, 160), AutoSize = true };
+            Controls.Add(res);
+        }
+
+        private void Clac()
+        {
+            try
+            {
+                double h = double.Parse(tbH.Text.Replace(".", ","));
+                double p = double.Parse(tbP.Text.Replace(".", ","));
+                double g = 10;
+
+                double rho = p / (g * h);
+                res.Text = $"p = {rho:F0} кг/м3";
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка"); 
+            }
+        }
+        private void Form1_Load(object sender, EventArgs e) { }
+    }
+}
